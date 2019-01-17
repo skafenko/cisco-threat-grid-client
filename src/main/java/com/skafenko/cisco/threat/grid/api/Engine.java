@@ -74,6 +74,26 @@ class Engine {
         }
     }
 
+    public FileScanMetaData scanUrl(String url, String sampleName, Playbook playbook, String[] tags) throws IOException {
+        try (MultiPart multiPart = new FormDataMultiPart()
+                .field(API_KEY, apikey)
+                .field("url", url)
+                .field("sample_filename", sampleName)
+                .field("vm", vm.getValue())
+                .field("private", String.valueOf(isPrivate))
+                .field("tags", String.join(",", tags))
+                .field("playbook", playbook.name().toLowerCase())
+                .field("callback_url", callbackUrl)
+                .field("email_notification", String.valueOf(emailNotification))) {
+            multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
+            WebResource resource = client.resource(SAMPLES_URL);
+            return resource.type(MediaType.MULTIPART_FORM_DATA)
+                    .post(FileScanMetaData.class, multiPart);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     private Client getClient() {
         ClientConfig config = new DefaultClientConfig();
         config.getClasses().add(JacksonJsonProvider.class);
@@ -87,7 +107,7 @@ class Engine {
     private static SSLContext sslContext() {
         TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public X509Certificate[] getAcceptedIssuers() {
-                return null;
+                return new X509Certificate[0];
             }
 
             public void checkClientTrusted(X509Certificate[] certs, String authType) {

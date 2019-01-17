@@ -51,12 +51,16 @@ class ThreatGridClient {
         return this;
     }
 
-    public FileScanMetaData scanFile(InputStream in, String filename) throws IOException {
-        return engine.scanFile(in, filename);
+    public FileScanMetaData scanFile(InputStream in, String filename, String... tags) throws IOException {
+        return engine.scanFile(in, filename, tags);
     }
 
-    public FileScanMetaData scanFile(InputStream in, String filename, String... tags) throws IOException {
-        return engine.scanFile(in, filename);
+    public FileScanMetaData scanFile(InputStream in, String filename, Playbook playbook, String... tags) throws IOException {
+        return engine.scanFile(in, filename, playbook, tags);
+    }
+
+    public FileScanMetaData scanUrl(String url, String sampleName, Playbook playbook, String... tags) throws IOException {
+        return engine.scanUrl(url, sampleName, playbook, tags);
     }
 
     public FileScanMetaData getFileReport(String id) {

@@ -1,6 +1,8 @@
 package com.skafenko.cisco.threat.grid.api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum VirtualMachine {
     WINDOWS_7("win7-x64"),
     WINDOWS_7_PROFILE("win7-x64-2"),
@@ -15,7 +17,7 @@ public enum VirtualMachine {
     VirtualMachine(String value) {
         this.value = value;
     }
-
+    @JsonValue
     public String getValue() {
         return value;
     }

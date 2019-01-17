@@ -1,5 +1,7 @@
 package com.skafenko.cisco.threat.grid.api;
 
+import com.skafenko.cisco.threat.grid.api.model.Playbook;
+import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
 import com.skafenko.cisco.threat.grid.api.model.json.FileScanMetaData;
 
 import java.io.File;
@@ -13,10 +15,11 @@ public class EngineTest {
         try {
 
             File file = new File("C:\\Users\\m.skafenko\\Desktop\\fileStorage\\audio.mp3");
-            client.setPrivate(true).setCallbackUrl("https://1ed03711.ngrok.io/TRUM/trum/clients/sample");
-            FileScanMetaData response = client.scanFile(new FileInputStream(file), "audio.mp3");
-            System.out.println(response);
-
+            client.setPrivate(true).setCallbackUrl("https://1ed03711.ngrok.io/TRUM/trum/clients/sample")
+                    .setVM(VirtualMachine.WINDOWS_10);
+            FileScanMetaData response = client.scanFile(new FileInputStream(file), "audio.mp3", Playbook.CLOSE_FILE, "tag");
+//            FileScanMetaData translate = client.scanUrl("https://translate.google.ru/", "translate", Playbook.RUN_DIALOG_BOX_IE);
+//            System.out.println(translate);
             FileScanMetaData ciscoResponse = client.getFileReport(response.getData().getId());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
