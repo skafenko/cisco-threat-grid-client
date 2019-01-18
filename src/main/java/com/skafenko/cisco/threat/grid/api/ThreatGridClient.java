@@ -1,6 +1,7 @@
 package com.skafenko.cisco.threat.grid.api;
 
 
+import com.skafenko.cisco.threat.grid.api.exception.InvalidURLException;
 import com.skafenko.cisco.threat.grid.api.exception.NoSuchAPIKeyException;
 import com.skafenko.cisco.threat.grid.api.model.Playbook;
 import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
@@ -16,15 +17,15 @@ import java.util.Collection;
 import java.util.List;
 
 
-class ThreatGridClient {
-
+public class ThreatGridClient {
+    public static final String BODY_PART_NAME = "sample";
     private final Engine engine;
 
     private ThreatGridClient(String apikey) {
         engine = Engine.configure(apikey);
     }
 
-    static ThreatGridClient configure(String apikey) {
+    public static ThreatGridClient configure(String apikey) {
         if (apikey != null && !apikey.isEmpty()) {
             return new ThreatGridClient(apikey);
         } else {
@@ -67,7 +68,14 @@ class ThreatGridClient {
                 .getData();
     }
 
+    public FileScanReport scanUrl(String url, String sampleName, String... tags) throws IOException {
+        return scanUrl(url, sampleName, Playbook.NONE, tags);
+    }
+
     public FileScanReport scanUrl(String url, String sampleName, Playbook playbook, String... tags) throws IOException {
+        if (url == null || sampleName == null || url.isEmpty()) {
+            throw new InvalidURLException("url must not be empty, sampleName must not be null");
+        }
         return engine.scanUrl(url, sampleName, playbook, tags)
                 .getData();
     }

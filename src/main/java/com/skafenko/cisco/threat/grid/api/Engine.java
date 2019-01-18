@@ -18,11 +18,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import static com.skafenko.cisco.threat.grid.api.ThreatGridClient.BODY_PART_NAME;
+
 @Setter
 class Engine {
     private static final String SAMPLES_URL = "https://panacea.threatgrid.eu/api/v2/samples";
     private static final String SAMPLES_STATE_URL = "https://panacea.threatgrid.eu/api/v2/samples/state";
     private static final String API_KEY = "api_key";
+    private static final String VM_FIELD = "vm";
+    private static final String PRIVATE_FIELD = "private";
+    private static final String TAGS_FIELD = "tags";
+    private static final String PLAYBOOK_FIELD = "playbook";
+    private static final String CALLBACK_URL_FIELD = "callback_url";
+    private static final String EMAIL_NOTIFICATION_FIELD = "email_notification";
 
     private final String apikey;
     private final Client client;
@@ -54,13 +62,13 @@ class Engine {
     FileScanMetaData scanFile(InputStream in, String filename, Playbook playbook, String... tags) throws IOException {
         try (MultiPart multiPart = new FormDataMultiPart()
                 .field(API_KEY, apikey)
-                .field("vm", vm.getValue())
-                .field("private", String.valueOf(isPrivate))
-                .field("tags", String.join(",", tags))
-                .field("playbook", playbook.name().toLowerCase())
-                .field("callback_url", callbackUrl)
-                .field("email_notification", String.valueOf(emailNotification))
-                .bodyPart(new StreamDataBodyPart("sample", in, filename, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
+                .field(VM_FIELD, vm.getValue())
+                .field(PRIVATE_FIELD, String.valueOf(isPrivate))
+                .field(TAGS_FIELD, String.join(",", tags))
+                .field(PLAYBOOK_FIELD, playbook.name().toLowerCase())
+                .field(CALLBACK_URL_FIELD, callbackUrl)
+                .field(EMAIL_NOTIFICATION_FIELD, String.valueOf(emailNotification))
+                .bodyPart(new StreamDataBodyPart(BODY_PART_NAME, in, filename, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
             multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
             WebResource resource = client.resource(SAMPLES_URL);
             return resource.type(MediaType.MULTIPART_FORM_DATA)
@@ -75,12 +83,12 @@ class Engine {
                 .field(API_KEY, apikey)
                 .field("url", url)
                 .field("sample_filename", sampleName)
-                .field("vm", vm.getValue())
-                .field("private", String.valueOf(isPrivate))
-                .field("tags", String.join(",", tags))
-                .field("playbook", playbook.name().toLowerCase())
-                .field("callback_url", callbackUrl)
-                .field("email_notification", String.valueOf(emailNotification))) {
+                .field(VM_FIELD, vm.getValue())
+                .field(PRIVATE_FIELD, String.valueOf(isPrivate))
+                .field(TAGS_FIELD, String.join(",", tags))
+                .field(PLAYBOOK_FIELD, playbook.name().toLowerCase())
+                .field(CALLBACK_URL_FIELD, callbackUrl)
+                .field(EMAIL_NOTIFICATION_FIELD, String.valueOf(emailNotification))) {
             multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
             WebResource resource = client.resource(SAMPLES_URL);
             return resource.type(MediaType.MULTIPART_FORM_DATA)

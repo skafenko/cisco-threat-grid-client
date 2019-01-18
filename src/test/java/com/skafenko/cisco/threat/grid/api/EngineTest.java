@@ -1,5 +1,6 @@
 package com.skafenko.cisco.threat.grid.api;
 
+import com.skafenko.cisco.threat.grid.api.model.Playbook;
 import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
 import com.skafenko.cisco.threat.grid.api.model.json.FileScanMetaData;
 import com.skafenko.cisco.threat.grid.api.model.json.FileScanReport;
@@ -18,11 +19,12 @@ public class EngineTest {
             client.setPrivate(true)
                     .setCallbackUrl("https://1ed03711.ngrok.io/TRUM/trum/clients/sample")
                     .setVM(VirtualMachine.WINDOWS_10);
-            FileScanReport response = client.scanFile(file, "audio.mp3", "tag");
-            FileScanReport response2 = client.scanFile(file, "audio.mp3", "tag");
+            FileScanReport response = client.scanUrl("d", "", Playbook.CLOSE_FILE, "tag");
+            System.out.println(response
+            );
 //            FileScanMetaData translate = client.scanUrl("https://translate.google.ru/", "translate", Playbook.RUN_DIALOG_BOX_IE);
 //            System.out.println(translate);
-            client.getFilesReport(Arrays.asList(response.getId(), response2.getId()));
+//            client.getFilesReport(Arrays.asList(response.getId(), response2.getId()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
