@@ -4,10 +4,16 @@ package com.skafenko.cisco.threat.grid.api;
 import com.skafenko.cisco.threat.grid.api.exception.NoSuchAPIKeyException;
 import com.skafenko.cisco.threat.grid.api.model.Playbook;
 import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
-import com.skafenko.cisco.threat.grid.api.model.json.FileScanMetaData;
+import com.skafenko.cisco.threat.grid.api.model.json.FileScanReport;
+import com.skafenko.cisco.threat.grid.api.model.json.SamplesState;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 class ThreatGridClient {
@@ -51,19 +57,35 @@ class ThreatGridClient {
         return this;
     }
 
-    public FileScanMetaData scanFile(InputStream in, String filename, String... tags) throws IOException {
-        return engine.scanFile(in, filename, tags);
+    public FileScanReport scanFile(InputStream in, String filename, String... tags) throws IOException {
+        return engine.scanFile(in, filename, tags)
+                .getData();
     }
 
-    public FileScanMetaData scanFile(InputStream in, String filename, Playbook playbook, String... tags) throws IOException {
-        return engine.scanFile(in, filename, playbook, tags);
+    public FileScanReport scanFile(InputStream in, String filename, Playbook playbook, String... tags) throws IOException {
+        return engine.scanFile(in, filename, playbook, tags)
+                .getData();
     }
 
-    public FileScanMetaData scanUrl(String url, String sampleName, Playbook playbook, String... tags) throws IOException {
-        return engine.scanUrl(url, sampleName, playbook, tags);
+    public FileScanReport scanUrl(String url, String sampleName, Playbook playbook, String... tags) throws IOException {
+        return engine.scanUrl(url, sampleName, playbook, tags)
+                .getData();
     }
 
-    public FileScanMetaData getFileReport(String id) {
-        return engine.getFileReport(id);
+    public FileScanReport scanFile(File file, String filename, String... tags) throws IOException {
+        return engine.scanFile(new FileInputStream(file), filename, tags)
+                .getData();
+    }
+
+    public List<SamplesState> getFilesReport(Collection<String> ids) {
+        if (ids != null && !ids.isEmpty()) {
+            return engine.getFilesReport(ids).getData();
+        }
+        return new ArrayList<>();
+    }
+
+    public FileScanReport getFileReport(String id) {
+        return engine.getFileReport(id)
+                .getData();
     }
 }
