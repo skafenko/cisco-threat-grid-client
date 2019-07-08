@@ -1,14 +1,12 @@
-package com.skafenko.cisco.threat.grid.api;
+package ua.com.smiddle.cisco.threat.grid.api;
 
-import com.skafenko.cisco.threat.grid.api.model.Playbook;
-import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
-import com.skafenko.cisco.threat.grid.api.model.json.FileScanMetaData;
-import com.skafenko.cisco.threat.grid.api.model.json.FileScanReport;
+import ua.com.smiddle.cisco.threat.grid.api.model.Playbook;
+import ua.com.smiddle.cisco.threat.grid.api.model.VirtualMachine;
+import ua.com.smiddle.cisco.threat.grid.api.model.json.FileScanReport;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class EngineTest {
     public static void main(String[] args) {

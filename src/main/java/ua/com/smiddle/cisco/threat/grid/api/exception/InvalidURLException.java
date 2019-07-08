@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.skafenko.cisco.threat.grid.api.exception;
+package ua.com.smiddle.cisco.threat.grid.api.exception;
 
 import java.net.MalformedURLException;
 

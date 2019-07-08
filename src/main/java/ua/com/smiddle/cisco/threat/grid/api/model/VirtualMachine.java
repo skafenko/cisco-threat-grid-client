@@ -1,4 +1,4 @@
-package com.skafenko.cisco.threat.grid.api.model;
+package ua.com.smiddle.cisco.threat.grid.api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonValue;

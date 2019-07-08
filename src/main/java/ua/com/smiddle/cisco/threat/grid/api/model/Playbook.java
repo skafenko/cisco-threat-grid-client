@@ -1,4 +1,4 @@
-package com.skafenko.cisco.threat.grid.api.model;
+package ua.com.smiddle.cisco.threat.grid.api.model;
 
 public enum Playbook {
     NONE, DEFAULT, ALT_TAB_PROGRAMS, OPEN_WORD_EMBEDDED_OBJECT,

@@ -1,9 +1,9 @@
-package com.skafenko.cisco.threat.grid.api.model.json;
+package ua.com.smiddle.cisco.threat.grid.api.model.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
+import ua.com.smiddle.cisco.threat.grid.api.model.VirtualMachine;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

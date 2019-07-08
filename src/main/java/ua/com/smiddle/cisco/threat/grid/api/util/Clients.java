@@ -1,4 +1,4 @@
-package com.skafenko.cisco.threat.grid.api.util;
+package ua.com.smiddle.cisco.threat.grid.api.util;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.sun.jersey.api.client.Client;

@@ -1,12 +1,12 @@
-package com.skafenko.cisco.threat.grid.api;
+package ua.com.smiddle.cisco.threat.grid.api;
 
 
-import com.skafenko.cisco.threat.grid.api.exception.InvalidURLException;
-import com.skafenko.cisco.threat.grid.api.exception.NoSuchAPIKeyException;
-import com.skafenko.cisco.threat.grid.api.model.Playbook;
-import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
-import com.skafenko.cisco.threat.grid.api.model.json.FileScanReport;
-import com.skafenko.cisco.threat.grid.api.model.json.SamplesState;
+import ua.com.smiddle.cisco.threat.grid.api.exception.InvalidURLException;
+import ua.com.smiddle.cisco.threat.grid.api.exception.NoSuchAPIKeyException;
+import ua.com.smiddle.cisco.threat.grid.api.model.Playbook;
+import ua.com.smiddle.cisco.threat.grid.api.model.VirtualMachine;
+import ua.com.smiddle.cisco.threat.grid.api.model.json.FileScanReport;
+import ua.com.smiddle.cisco.threat.grid.api.model.json.SamplesState;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,6 +28,14 @@ public class ThreatGridClient {
     public static ThreatGridClient configure(String apikey) {
         if (apikey != null && !apikey.isEmpty()) {
             return new ThreatGridClient(apikey);
+        } else {
+            throw new NoSuchAPIKeyException("Valid API key is required");
+        }
+    }
+
+    public void updateApiKey(String apikey) {
+        if (apikey != null && !apikey.isEmpty()) {
+            engine.setApikey(apikey);
         } else {
             throw new NoSuchAPIKeyException("Valid API key is required");
         }

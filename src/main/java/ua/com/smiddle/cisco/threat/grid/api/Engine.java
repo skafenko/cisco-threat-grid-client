@@ -1,10 +1,10 @@
-package com.skafenko.cisco.threat.grid.api;
+package ua.com.smiddle.cisco.threat.grid.api;
 
-import com.skafenko.cisco.threat.grid.api.model.Playbook;
-import com.skafenko.cisco.threat.grid.api.model.VirtualMachine;
-import com.skafenko.cisco.threat.grid.api.model.json.FileScanMetaData;
-import com.skafenko.cisco.threat.grid.api.model.json.StateResponse;
-import com.skafenko.cisco.threat.grid.api.util.Clients;
+import ua.com.smiddle.cisco.threat.grid.api.model.Playbook;
+import ua.com.smiddle.cisco.threat.grid.api.model.VirtualMachine;
+import ua.com.smiddle.cisco.threat.grid.api.model.json.FileScanMetaData;
+import ua.com.smiddle.cisco.threat.grid.api.model.json.StateResponse;
+import ua.com.smiddle.cisco.threat.grid.api.util.Clients;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-import static com.skafenko.cisco.threat.grid.api.ThreatGridClient.BODY_PART_NAME;
-
 @Setter
 class Engine {
     private static final String SAMPLES_URL = "https://panacea.threatgrid.eu/api/v2/samples";
@@ -32,7 +30,7 @@ class Engine {
     private static final String CALLBACK_URL_FIELD = "callback_url";
     private static final String EMAIL_NOTIFICATION_FIELD = "email_notification";
 
-    private final String apikey;
+    private String apikey;
     private final Client client;
 
     private VirtualMachine vm = VirtualMachine.NONE;
@@ -68,7 +66,7 @@ class Engine {
                 .field(PLAYBOOK_FIELD, playbook.name().toLowerCase())
                 .field(CALLBACK_URL_FIELD, callbackUrl)
                 .field(EMAIL_NOTIFICATION_FIELD, String.valueOf(emailNotification))
-                .bodyPart(new StreamDataBodyPart(BODY_PART_NAME, in, filename, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
+                .bodyPart(new StreamDataBodyPart(ThreatGridClient.BODY_PART_NAME, in, filename, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
             multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
             WebResource resource = client.resource(SAMPLES_URL);
             return resource.type(MediaType.MULTIPART_FORM_DATA)
