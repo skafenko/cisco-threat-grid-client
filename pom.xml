@@ -18,7 +18,7 @@
 
         <lombok.version>1.16.20</lombok.version>
         <jersey.version>1.19.4</jersey.version>
-        <jackson.version>2.9.7</jackson.version>
+        <jackson.version>2.14.0</jackson.version>
     </properties>
 
     <build>
